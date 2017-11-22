@@ -1,0 +1,39 @@
+{
+  "name": "zadanie_8_3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:html && npm run test:js",
+    "test:html": "glob-run nu-html-checker *.html",
+    "test:js": "jshint js/",
+    "build": "npm run build:clean && npm run build:sass && npm run build:autoprefixer && npm run test",
+    "build:clean": "node_modules/.bin/rimraf css/*.css",
+    "build:sass": "sass --sourcemap=none --update scss:css",
+    "build:autoprefixer": "autoprefixer-cli css/style.css",
+    "watch:browsersync": "node_modules/.bin/browser-sync start --server --files \"css/*.css\" \"*.html\"",
+    "watch": "parallelshell \"npm run watch:browsersync\" \"npm run watch:sass\" \"npm run watch:autoprefixer\" ",
+    "watch:sass": "sass --watch scss:css",
+    "watch:autoprefixer": "onchange -d 100 css/style.css -- autoprefixer-cli -o css/style.prefixed.css css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trevirke/nauka-gita-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trevirke/nauka-gita-2/issues"
+  },
+  "homepage": "https://github.com/trevirke/nauka-gita-2#readme",
+  "dependencies": {
+    "glob-run": "^0.1.6",
+    "onchange": "^3.2.1",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "parallelshell": "^3.0.2"
+  }
+}
